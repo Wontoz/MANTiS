@@ -1,6 +1,8 @@
 import React from 'react';
 import data from './data.js';
 import defaultCover from './img/defaultCover.png';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import './App.css';
 
 class Header extends React.Component {
@@ -43,25 +45,29 @@ class Gallery extends React.Component {
         const items = [];
         for (var item in this.releaseData.releases) {
             items.push(
-                <Release id={this.releaseData.releases[item].id} title={this.releaseData.releases[item].title} artist={this.releaseData.releases[item].artist} cover={this.releaseData.releases[item].cover}/>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Release id={this.releaseData.releases[item].id} title={this.releaseData.releases[item].title} artist={this.releaseData.releases[item].artist} cover={this.releaseData.releases[item].cover} />
+                </Grid>
             )
         }
 
         return (
-            <ul>
+            <Grid container direction="row" justifyContent="center" alignItems="center">
                 {items}
-            </ul>
+            </Grid>
         )
     }
 }
 
 function App() {
     return (
-        <div className="wrapper">
-            <Header />
-            <Navbar />
-            <Gallery />
-        </div>
+        <div>
+            <Container maxWidth="sm">
+                <Header />
+                <Navbar />
+                <Gallery />
+            </Container>
+        </div >
     )
 }
 
