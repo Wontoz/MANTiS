@@ -12,8 +12,10 @@ import { ListItem } from '@material-ui/core';
 const flexContainer = {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'center',
     padding: 0,
-  };
+    margin: 5,
+};
 
 class Header extends React.Component {
     render() {
@@ -38,12 +40,12 @@ class Navbar extends React.Component {
 }
 function Release(props) {
     return (
-    <Grid item xs alignItems='center' style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <img src={defaultCover} alt="Default Cover"></img>
-        <h8>{props.date}</h8>
-        <h4>{props.title}</h4>
-        {props.artist}
-    </Grid>
+        <Grid item xs alignItems='center' style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <img src={defaultCover} alt="Default Cover"></img>
+            <h8>{props.date}</h8>
+            <h4>{props.title}</h4>
+            {props.artist}
+        </Grid>
     )
 }
 class Gallery extends React.Component {
@@ -60,11 +62,12 @@ class Gallery extends React.Component {
         const items = [];
         for (var item in this.releaseData.releases) {
             items.push(
-                    <Release id={this.releaseData.releases[item].id} date={this.releaseData.releases[item].date} title={this.releaseData.releases[item].title} artist={this.releaseData.releases[item].artist} cover={this.releaseData.releases[item].cover} />
+                <Release id={this.releaseData.releases[item].id} date={this.releaseData.releases[item].date} title={this.releaseData.releases[item].title} artist={this.releaseData.releases[item].artist} cover={this.releaseData.releases[item].cover} />
             )
         }
 
         return (
+
             <Grid container spacing={3} direction="row-reverse">
                 {items}
             </Grid>
@@ -82,9 +85,12 @@ function App() {
                     borderColor="grey.500"
                     alignItems="center"
                     justifyContent="center">
-                    <Header />    
+                    <Header />
                 </Box>
                 <Navbar />
+                <Box mb={9}>
+                    <Typography variant="h6" component="h2" alignLeft>Releases</Typography>
+                </Box>
                 <Gallery />
             </Container>
         </div >
