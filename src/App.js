@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import './App.css';
 import { List } from '@material-ui/core';
 import { ListItem } from '@material-ui/core';
-
+import { Modal } from '@material-ui/core';
 
 const flexContainer = {
     display: 'flex',
@@ -44,7 +44,24 @@ class Showcase extends React.Component {
         super(props)
     }
     render(){
-        return <h2>{this.props.title}</h2>
+        return (
+        <Box
+        width="30vw" 
+        zIndex="9999" 
+        border={1} 
+        borderColor="white" 
+        padding={2} 
+        bgcolor="black" 
+        display="flex" 
+        position="aboslute"
+        justifyContent="center" 
+        flexDirection="column" 
+        justify = "center"> 
+            <Typography variant="h6" component="body1" align="center">{this.props.date}</Typography>
+            <Typography variant="h5" component="body1" align="center">Title: {this.props.title}</Typography>
+            <Typography variant="h5" component="body1" align="center">Artist: {this.props.artist}</Typography>
+        </Box>
+        )
     }
 }
 class Release extends React.Component {
@@ -79,7 +96,7 @@ class Release extends React.Component {
                     <h4>{this.props.title}</h4>
                     {this.props.artist}
                     </Grid>
-                {this.state.showMessage && (<Showcase title={this.props.title}/>)}
+                {this.state.showMessage && (<Showcase date={this.props.date} title={this.props.title} artist={this.props.artist}/>)}
             </div>
         )
     }
