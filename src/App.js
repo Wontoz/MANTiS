@@ -9,6 +9,7 @@ import './App.css';
 import { List } from '@material-ui/core';
 import { ListItem } from '@material-ui/core';
 
+
 const flexContainer = {
     display: 'flex',
     flexDirection: 'row',
@@ -38,44 +39,56 @@ class Navbar extends React.Component {
         )
     }
 }
-function Release(props) {
-    return (
-        <Grid item xs alignItems='center' style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <img src={defaultCover} alt="Default Cover"></img>
-            <h8>{props.date}</h8>
-            <h4>{props.title}</h4>
-            {props.artist}
-        </Grid>
-    )
+class Showcase extends React.Component {
+    constructor(props){
+        super(props)
+    }
+    render(){
+        return <h2>{this.props.title}</h2>
+    }
 }
-class Gallery extends React.Component {
+class Release extends React.Component {
     constructor(props) {
         super(props);
-        this.releaseData = JSON.parse(localStorage.getItem("release_data"));
+        this.state = { showMessage: false }
     }
+
+    _showMessage = () => {
+        if(this.state.showMessage === false){
+            this.setState({
+                showMessage: true
+              });
+        } else if (this.state.showMessage === true){
+            this.setState({
+                showMessage: false
+              });
+        }
+      }
 
     componentDidMount() {
         localStorage.clear();
     }
 
     render() {
-        const items = [];
-        for (var item in this.releaseData.releases) {
-            items.push(
-                <Release id={this.releaseData.releases[item].id} date={this.releaseData.releases[item].date} title={this.releaseData.releases[item].title} artist={this.releaseData.releases[item].artist} cover={this.releaseData.releases[item].cover} />
-            )
-        }
-
+        const item = [];
         return (
-
-            <Grid container spacing={3} direction="row-reverse">
-                {items}
-            </Grid>
+            <div>
+                    <Grid item xs alignItems='center' style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <img src={defaultCover} alt="Default Cover" width="300" height="300" onClick={this._showMessage.bind(null)}></img>
+                    <h8>{this.props.date}</h8>
+                    <h4>{this.props.title}</h4>
+                    {this.props.artist}
+                    </Grid>
+                {this.state.showMessage && (<Showcase title={this.props.title}/>)}
+            </div>
         )
     }
 }
 
 function App() {
+    const releaseData = JSON.parse(localStorage.getItem("release_data"));
+    const releases = releaseData.releases.map((d) =><Release id={d.id} date={d.date} title={d.title} artist={d.artist}/>
+    );
     return (
         <div>
             <Container>
@@ -91,7 +104,9 @@ function App() {
                 <Box mb={9}>
                     <Typography variant="h6" component="h2" alignLeft>Releases</Typography>
                 </Box>
-                <Gallery />
+                <Grid container spacing={3} direction="row-reverse">
+                    {releases}
+                </Grid>
             </Container>
         </div >
     )
