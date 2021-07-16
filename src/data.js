@@ -5,7 +5,7 @@ var data = {
       "date": "September 27, 2019",
       "title": "Mind",
       "artist": "Knarkerz",
-      "cover": "http://localhost/reactlabel/src/img/defaultCover.png",
+      "cover": "http://localhost/reactlabel/src/img/mind_cover.jpg",
       "sc_link": 'https://soundcloud.com/knarkerz/mind'
     },
     {
@@ -13,7 +13,7 @@ var data = {
       "date": "November 2, 2019",
       "title": "Adam",
       "artist": "Knarkerz",
-      "cover": "http://localhost/reactlabel/src/img/defaultCover.png",
+      "cover": "http://localhost/reactlabel/src/img/adam_cover.jpg",
       "sc_link": 'https://soundcloud.com/knarkerz/adam'
     },
     {
@@ -21,7 +21,7 @@ var data = {
       "date": "March 13, 2020",
       "title": "Green Light",
       "artist": "Knarkerz",
-      "cover": "http://localhost/reactlabel/src/img/defaultCover.png",
+      "cover": "http://localhost/reactlabel/src/img/greenlight_cover.jpg",
       "sc_link": "https://soundcloud.com/knarkerz/green-light"
     },
     {
@@ -29,7 +29,7 @@ var data = {
       "date": "January 21, 2021",
       "title": "Feel Good (but actually not)",
       "artist": "Knarkerz",
-      "cover": "http://localhost/reactlabel/src/img/defaultCover.png",
+      "cover": "http://localhost/reactlabel/src/img/feelgood_cover.jpg",
       "sc_link": "https://soundcloud.com/knarkerz/feel-good-but-actually-not"
     },
   ]

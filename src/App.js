@@ -121,15 +121,13 @@ class Release extends React.Component {
         return (
             <Grid item xs alignItems='center' style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <ReleaseShowcase date={this.props.date} title={this.props.title} artist={this.props.artist} cover={this.props.cover} sc={this.props.sc_link} />
-                <h8>{this.props.date}</h8>
-                <h4>{this.props.title}</h4>
-                {this.props.artist}
             </Grid>
         )
     }
 }
 
 function App() {
+    document.title = "M4NTiS - Important Records Since 2019"
     const releaseData = JSON.parse(localStorage.getItem("release_data"));
     const releases = releaseData.releases.map((d) => <Release id={d.id} date={d.date} title={d.title} artist={d.artist} cover={d.cover} sc_link={d.sc_link} />
     );
