@@ -6,9 +6,11 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import './App.css';
-import { List } from '@material-ui/core';
+import { Button, List } from '@material-ui/core';
 import { ListItem } from '@material-ui/core';
-import { Modal } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import { withStyles } from '@material-ui/core/styles';
 
 const flexContainer = {
     display: 'flex',
@@ -18,12 +20,83 @@ const flexContainer = {
     margin: 5,
 };
 
+function getModalPosition() {
+    const top = 50;
+    const left = 50;
+
+    return {
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+    };
+}
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        position: 'fixed',
+        top: 'left: 50%',
+        width: 400,
+        backgroundColor: "black",
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: 15,
+        color: 'white',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
+    },
+    scbutton: {
+        background: 'linear-gradient(45deg, #FF5836 40%, #FF7F34 60%)',
+        color: 'white'
+    }
+}));
+
+function ReleaseShowcase(props) {
+
+    const classes = useStyles();
+    const [modalStyle] = React.useState(getModalPosition);
+    const [open, setOpen] = React.useState(false);
+
+
+    const openShowcase = () => {
+        setOpen(true);
+    };
+
+    const closeShowcase = () => {
+        setOpen(false);
+    };
+
+    const body = (
+        <Box style={modalStyle} className={classes.paper} display="flex" alignItems="center"> 
+            <img src={props.cover} alt="Default Cover" width="200" height="200"></img>
+            <Box mt={4}></Box><Typography variant="body1" component="caption" mt={5}>{props.date}</Typography>
+            <Typography variant="h5" component="string">Title: {props.title}</Typography>
+            <Typography variant="h5" component="string">Artist: {props.artist}</Typography>
+            <Button variant="contained" width="40px" color="white" href={props.sc} target="_blank" className={classes.scbutton}>Soundcloud</Button>
+        </Box>
+    );
+
+    return (
+        <div>
+            <img src={props.cover} alt="Default Cover" width="250" height="250" onClick={openShowcase}></img>
+            <Modal
+                open={open}
+                onClose={closeShowcase}
+                aria-labelledby="mantis-release-showcase"
+                aria-describedby="showcase of a particular release at mantis"
+            >
+                {body}
+            </Modal>
+        </div>
+    );
+}
+
 class Header extends React.Component {
     render() {
         return (
             <span>
-                <Typography variant="h2" component="h1" align="center">TBA Records</Typography>
-                <Typography variant="h6" component="h2" align="center">Home of Wontoz.</Typography>
+                <Typography variant="h2" component="h1" align="center">M4NTiS</Typography>
+                <Typography variant="h6" component="h2" align="center">Important Records Since 2019.</Typography>
             </span>
         )
     }
@@ -39,89 +112,41 @@ class Navbar extends React.Component {
         )
     }
 }
-class Showcase extends React.Component {
-    constructor(props){
-        super(props)
-    }
-    render(){
-        return (
-        <Box
-        width="30vw" 
-        zIndex="9999" 
-        border={1} 
-        borderColor="white" 
-        padding={2} 
-        bgcolor="black" 
-        display="flex" 
-        position="aboslute"
-        justifyContent="center" 
-        flexDirection="column" 
-        justify = "center"> 
-            <Typography variant="h6" component="body1" align="center">{this.props.date}</Typography>
-            <Typography variant="h5" component="body1" align="center">Title: {this.props.title}</Typography>
-            <Typography variant="h5" component="body1" align="center">Artist: {this.props.artist}</Typography>
-        </Box>
-        )
-    }
-}
 class Release extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { showMessage: false }
-    }
-
-    _showMessage = () => {
-        if(this.state.showMessage === false){
-            this.setState({
-                showMessage: true
-              });
-        } else if (this.state.showMessage === true){
-            this.setState({
-                showMessage: false
-              });
-        }
-      }
-
     componentDidMount() {
-        localStorage.clear();
+        localStorage.clear()
     }
 
     render() {
-        const item = [];
         return (
-            <div>
-                    <Grid item xs alignItems='center' style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <img src={defaultCover} alt="Default Cover" width="300" height="300" onClick={this._showMessage.bind(null)}></img>
-                    <h8>{this.props.date}</h8>
-                    <h4>{this.props.title}</h4>
-                    {this.props.artist}
-                    </Grid>
-                {this.state.showMessage && (<Showcase date={this.props.date} title={this.props.title} artist={this.props.artist}/>)}
-            </div>
+            <Grid item xs alignItems='center' style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <ReleaseShowcase date={this.props.date} title={this.props.title} artist={this.props.artist} cover={this.props.cover} sc={this.props.sc_link} />
+                <h8>{this.props.date}</h8>
+                <h4>{this.props.title}</h4>
+                {this.props.artist}
+            </Grid>
         )
     }
 }
 
 function App() {
     const releaseData = JSON.parse(localStorage.getItem("release_data"));
-    const releases = releaseData.releases.map((d) =><Release id={d.id} date={d.date} title={d.title} artist={d.artist}/>
+    const releases = releaseData.releases.map((d) => <Release id={d.id} date={d.date} title={d.title} artist={d.artist} cover={d.cover} sc_link={d.sc_link} />
     );
     return (
         <div>
             <Container>
                 <Box m="auto" display="flex"
                     width={800} height={180}
-                    border={1}
-                    borderColor="grey.500"
                     alignItems="center"
                     justifyContent="center">
                     <Header />
                 </Box>
                 <Navbar />
                 <Box mb={9}>
-                    <Typography variant="h6" component="h2" alignLeft>Releases</Typography>
+                    <Typography variant="h6" component="h2">Releases</Typography>
                 </Box>
-                <Grid container spacing={3} direction="row-reverse">
+                <Grid container spacing={2} direction="row-reverse">
                     {releases}
                 </Grid>
             </Container>
