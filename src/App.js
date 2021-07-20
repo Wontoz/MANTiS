@@ -67,7 +67,7 @@ function ReleaseShowcase(props) {
     };
 
     const body = (
-        <Box style={modalStyle} className={classes.paper} display="flex" alignItems="center"> 
+        <Box style={modalStyle} className={classes.paper} display="flex" alignItems="center">
             <img src={props.cover} alt="Default Cover" width="200" height="200"></img>
             <Box mt={4}></Box><Typography variant="body1" component="caption" mt={5}>{props.date}</Typography>
             <Typography variant="h5" component="string">Title: {props.title}</Typography>
@@ -83,6 +83,45 @@ function ReleaseShowcase(props) {
                 open={open}
                 onClose={closeShowcase}
                 aria-labelledby="mantis-release-showcase"
+                aria-describedby="showcase of a particular release at mantis"
+            >
+                {body}
+            </Modal>
+        </div>
+    );
+}
+
+function ArtistShowcase(props) {
+
+    const classes = useStyles();
+    const [modalStyle] = React.useState(getModalPosition);
+    const [open, setOpen] = React.useState(false);
+
+
+    const openShowcase = () => {
+        setOpen(true);
+    };
+
+    const closeShowcase = () => {
+        setOpen(false);
+    };
+
+    const body = (
+        <Box style={modalStyle} className={classes.paper} display="flex" alignItems="center">
+            <img src={props.img} alt="Artist Image" width="200" height="200"></img>
+            <Typography variant="h5" component="string">Name: {props.name}</Typography>
+            <Typography variant="h5" component="string">Location: {props.location}</Typography>
+            <Typography variant="h5" component="string">Description: {props.desc}</Typography>
+        </Box>
+    );
+
+    return (
+        <div>
+            <img src={props.img} alt="Artist Image" width="250" height="250" onClick={openShowcase}></img>
+            <Modal
+                open={open}
+                onClose={closeShowcase}
+                aria-labelledby="mantis-artist-showcase"
                 aria-describedby="showcase of a particular release at mantis"
             >
                 {body}
@@ -126,11 +165,25 @@ class Release extends React.Component {
     }
 }
 
+class Artist extends React.Component {
+    componentDidMount() {
+        localStorage.clear()
+    }
+
+    render() {
+        return (
+            <Grid item xs alignItems='center' style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <ArtistShowcase name={this.props.name} location={this.props.location} desc={this.props.desc} img={this.props.img}/>
+            </Grid>
+        )
+    }
+}
+
 function App() {
     document.title = "M4NTiS - Important Records Since 2019"
     const releaseData = JSON.parse(localStorage.getItem("release_data"));
-    const releases = releaseData.releases.map((d) => <Release id={d.id} date={d.date} title={d.title} artist={d.artist} cover={d.cover} sc_link={d.sc_link} />
-    );
+    const releases = releaseData.releases.map((d) => <Release id={d.id} date={d.date} title={d.title} artist={d.artist} cover={d.cover} sc_link={d.sc_link} />);
+    const artists = releaseData.artists.map((d) => <Artist id = {d.id} name = {d.name} location = {d.location} desc = {d.desc} img= {d.img} />);
     return (
         <div>
             <Container>
@@ -146,6 +199,9 @@ function App() {
                 </Box>
                 <Grid container spacing={2} direction="row-reverse">
                     {releases}
+                </Grid>
+                <Grid container spacing={2} direction="row-reverse">
+                    {artists}
                 </Grid>
             </Container>
         </div >

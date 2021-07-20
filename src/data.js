@@ -32,6 +32,29 @@ var data = {
       "cover": "http://localhost/reactlabel/src/img/feelgood_cover.jpg",
       "sc_link": "https://soundcloud.com/knarkerz/feel-good-but-actually-not"
     },
+  ],
+  "artists": [
+    {
+      "id": 1,
+      "name": "Knarkerz",
+      "location": "Skövde, Sweden",
+      "desc": "Knarkerz is a duo formed in 2019 which produces hits containing messages to society",
+      "img" : "http://localhost/reactlabel/src/img/knarkerz_cover.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Wontoz",
+      "location": "Töreboda, Sweden",
+      "desc": "Wontoz",
+      "img": "http://localhost/reactlabel/src/img/wontoz_cover.png"
+    },
+    {
+      "id": 3,
+      "name": "Black Forest Revolution",
+      "location": "Kållered, Sweden",
+      "desc": "Black Forest Revolution",
+      "img": "http://localhost/reactlabel/src/img/bfr_cover.jpg"
+    }
   ]
 }
 
