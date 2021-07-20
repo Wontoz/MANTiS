@@ -130,6 +130,85 @@ function ArtistShowcase(props) {
     );
 }
 
+class ToggleShowcase extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleArtistClick = this.handleArtistClick.bind(this);
+        this.handleReleaseClick = this.handleReleaseClick.bind(this);
+        this.state = {displayReleases: true};
+    }
+
+    handleArtistClick() {
+        this.setState({displayReleases: false});
+    }
+
+    handleReleaseClick() {
+        this.setState({displayReleases: true});
+    }
+
+    render() {
+        const displayReleases = this.state.displayReleases;
+        let itemsOnDisplay;
+        if(displayReleases){
+            itemsOnDisplay = 
+                <div>
+                    <Box mb={9}>
+                        <Typography variant="h6" component="h2" align="center">Releases</Typography>
+                    </Box>
+                <Grid container spacing={2} direction="row-reverse">
+                    {this.props.releases}
+                </Grid>
+                </div>
+        } else {
+            itemsOnDisplay = 
+                <div>
+                    <Box mb={9}>
+                        <Typography variant="h6" component="h2" align="center">Artists</Typography>
+                    </Box>
+                    <Grid container spacing={2} direction="row-reverse">
+                        {this.props.artists}
+                    </Grid>
+                </div>
+        }
+        return (
+            <div>
+            <Grid container>
+                <Grid item xs alignItems='center' onClick={this.handleReleaseClick} style={{ display: "flex", flexDirection: "column", alignItems: "center" } }>
+                    Music
+                </Grid>
+                <Grid item xs alignItems='center' onClick={this.handleArtistClick} style={{ display: "flex", flexDirection: "column", alignItems: "center" } }>
+                    Artists
+                </Grid>
+            </Grid>
+            {itemsOnDisplay}
+            </div>
+        )
+    }
+
+    /*return (
+        <div>
+            <List>
+                <ListItem onClick={toggleReleases}>Music</ListItem>
+                <ListItem onClick={toggleArtists}>Artists</ListItem>
+            </List>
+            <Grid 
+                container spacing={2} 
+                direction="row-reverse" 
+            >
+                {props.releases}
+            </Grid>
+            {switchShowcase &&
+                <Grid 
+                container spacing={2} 
+                direction="row-reverse"
+            >
+                {props.artists}
+            </Grid>}
+        </div>
+    ); */
+}
+
+
 class Header extends React.Component {
     render() {
         return (
@@ -141,16 +220,6 @@ class Header extends React.Component {
     }
 }
 
-class Navbar extends React.Component {
-    render() {
-        return (
-            <List style={flexContainer}>
-                <ListItem>Music</ListItem>
-                <ListItem>Artists</ListItem>
-            </List>
-        )
-    }
-}
 class Release extends React.Component {
     componentDidMount() {
         localStorage.clear()
@@ -193,16 +262,7 @@ function App() {
                     justifyContent="center">
                     <Header />
                 </Box>
-                <Navbar />
-                <Box mb={9}>
-                    <Typography variant="h6" component="h2">Releases</Typography>
-                </Box>
-                <Grid container spacing={2} direction="row-reverse">
-                    {releases}
-                </Grid>
-                <Grid container spacing={2} direction="row-reverse">
-                    {artists}
-                </Grid>
+                <ToggleShowcase releases = {releases} artists ={artists}></ToggleShowcase>
             </Container>
         </div >
     )
