@@ -9,7 +9,6 @@ import Release from './components/Release.js';
 import ToggleShowcase from './components/ToggleShowcase.js';
 
 function App() {
-    document.title = "M4NTiS - Important Records Since 2019"
     const releaseData = JSON.parse(localStorage.getItem("release_data"));
     const releases = releaseData.releases.map((d) => <Release id={d.id} date={d.date} title={d.title} artist={d.artist} cover={d.cover} sc_link={d.sc_link} />);
     const artists = releaseData.artists.map((d) => <Artist id = {d.id} name = {d.name} location = {d.location} desc = {d.desc} img= {d.img} />);
