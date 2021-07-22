@@ -3,7 +3,7 @@
 Fictional Record Label created using React, React Hooks and Material UI. The project consists of a single page using conditional rendering to display different parts of the website. 
 
 ### Motivation
-The purpose of this project is to get familiar with the used technologies and to get more familliar with frontend development using JavaScript-based frameworks.
+The purpose of this project is to get familiar with the used technologies and to get more familiar with frontend development using JavaScript-based frameworks.
 
 ### Technologies used
 * React.js
@@ -15,7 +15,7 @@ The purpose of this project is to get familiar with the used technologies and to
 The current version of M4NTiS is a demo version with many features still to be added. Everything from new components to new technologies may be implemented in future versions.
 
 ### How to use
-Clone/Download the reposotiry on your local machine. 
+Clone/Download the repository on your local machine. 
 
 ##### Install dependencies
 ```npm install```
