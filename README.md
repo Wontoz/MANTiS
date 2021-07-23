@@ -1,6 +1,8 @@
-# M4NTiS - Important Records Since 2019 (DEMO)
+# MANTiS - Important Records Since 2019 (DEMO)
 
 Fictional Record Label created using React, React Hooks and Material UI. The project consists of a single page using conditional rendering to display different parts of the website. 
+
+### Github demo coming soon
 
 ### Motivation
 The purpose of this project is to get familiar with the used technologies and to get more familiar with frontend development using JavaScript-based frameworks.
